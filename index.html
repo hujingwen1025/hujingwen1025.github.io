@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Prototype | Ender's Keyboard</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+        <!-- full screen web app -->
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+        <!-- web app icons -->
+        <link rel="shortcut icon" sizes="196x196" href="icon-196.png">
+        <link rel="apple-touch-icon" href="icon-iphone.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="icon-ipad.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="icon-iphone-retina.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="icon-ipad-retina.png">
+
+        <!-- web app startup images -->
+        <!-- see http://stackoverflow.com/a/10011893/3150057 -->
+        <link href="startup-iphone.png" media="(device-width: 320px)" rel="apple-touch-startup-image">
+        <link href="startup-iphone-retina.png" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+        <link href="startup-iphone-retina-long.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+        <link href="startup-ipad.png" media="(device-width: 768px) and (orientation: portrait)" rel="apple-touch-startup-image">
+        <link href="startup-ipad-landscape.png" media="(device-width: 768px) and (orientation: landscape)" rel="apple-touch-startup-image">
+        <link href="startup-ipad-retina.png" media="(device-width: 1536px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+        <link href="startup-ipad-landscape-retina.png" media="(device-width: 1536px)  and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+
+        <!-- application styles -->
+        <link type="text/css" charset="utf-8" rel="stylesheet" href="css/app.css" />
+
+        <!-- application scripts -->
+        <script src="js/lib/underscore.min.js"></script>
+        <script src="js/lib/jquery.min.js"></script>
+        <script src="js/lib/backbone.min.js"></script>
+        <script src="js/app.js"></script>
+        <!-- used for remote logging, see jsconsole.com
+        example: <script src="http://jsconsole.com/remote.js?12345678-ABCDEFG-1234567890"></script>
+        -->
+
+    </head>
+    <body>
+        <div id="app"></div>
+        <div class="button show-instructions js-hover">instructions</div>
+        <div id="instructions" class="js-scroll">
+            <div class="button close js-hover">close</div>
+            <h1>Ender's Keyboard</h1>
+            <p>The one-handed touch screen keyboard used by Ender in Ender's Game the movie.</p>
+            
+            <p><a style="color:#eef0db;" href="https://github.com/henrahmagix/enders-keyboard">Source on GitHub<a/></p>
+
+            <h2>Instructions</h2>
+            <p>Touch to start character selection. Slide along the axis to select a character. Release to type the character (a quick tap will type the default character.)</p>
+
+            <h3>Character sets</h3>
+            <p>From top to bottom. The default character is the one the slider starts on. On the fingers you can slide up two characters and down for the rest.</p>
+            <p>Tap peek to see the characters.</p>
+
+            <h4>Thumb</h4>
+            <ul>
+                <li><strong>Enter</strong></li>
+                <li><strong>Space</strong> (default)</li>
+                <li><strong>Backspace</strong></li>
+            </ul>
+
+            <h4>Second</h4>
+            <ul>
+                <li><strong>a</strong> to <strong>g</strong></li>
+                <li>default: <strong>c</strong></li>
+            </ul>
+
+            <h4>Third</h4>
+            <ul>
+                <li><strong>h</strong> to <strong>n</strong></li>
+                <li>default: <strong>j</strong></li>
+            </ul>
+
+            <h4>Fourth</h4>
+            <ul>
+                <li><strong>o</strong> to <strong>t</strong></li>
+                <li>default: <strong>q</strong></li>
+            </ul>
+
+            <h4>Fifth</h4>
+            <ul>
+                <li><strong>u</strong> to <strong>z</strong></li>
+                <li>default: <strong>w</strong></li>
+            </ul>
+        </div>
+    </body>
+</html>
