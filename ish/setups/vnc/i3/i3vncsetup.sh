@@ -44,12 +44,3 @@ xterm*VT100.Translations: #override \
     Ctrl <Key> plus: larger-vt-font() \n\
     Ctrl <Key> 0: set-vt-font(d)
 EVERYWHERE
-echo ' '
-echo 'Please set password for VNC SERVER'
-echo 'Leave empty for no password'
-echo 'You will not see anything when you are entering for security'
-echo 'When asked the location of saving password, press y and enter'
-echo ' '
-x11vnc -storepasswd
-echo ' '
-echo 'Setup portion 1 success'
