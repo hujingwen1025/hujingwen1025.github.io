@@ -1,5 +1,7 @@
 #!/bin/ash
+echo 'Installing required packages...'
 apk add x11vnc x11vnc-doc xvfb xterm xorg-server xf86-video-dummy i3wm i3status i3lock xdpyinfo xdpyinfo-doc i3wm-doc i3lock-doc i3status-doc ttf-dejavu
+echo 'Creating need files...'
 mkdir -p /etc/X11/xorg.conf.d
 cat <<HERE > /etc/X11/xorg.conf.d/10-headless.conf
 Section "Monitor"
@@ -42,3 +44,12 @@ xterm*VT100.Translations: #override \
     Ctrl <Key> plus: larger-vt-font() \n\
     Ctrl <Key> 0: set-vt-font(d)
 EVERYWHERE
+echo ' '
+echo 'Please set password for VNC SERVER'
+echo 'Leave empty for no password'
+echo 'You will not see anything when you are entering for security'
+echo 'When asked the location of saving password, press y and enter'
+echo ' '
+x11vnc -storepasswd
+echo ' '
+echo 'Setup portion 1 success'
