@@ -23,4 +23,4 @@ if [ $CHECK -eq 1 ]; then
 fi
 
 startx &
-x11vnc -display :0 -noshm -forever -rfdauth /root/.vnc/passwd & 
+x11vnc -display :0 -noshm -forever -rfbauth /root/.vnc/passwd & 
