@@ -10,7 +10,7 @@
   <input type="text" id="urlInput" placeholder="https://www.example.com">
   <button onclick="openPopup()">OK</button>
   <h3>Quit NWEA Browser</h3>
-  <button onclick="close()">Close</button>
+  <button onclick="var popup = window.open('about:blank'); popup.close();">Close</button>
   <script>
     function openPopup() {
       var url = document.getElementById('urlInput').value;
