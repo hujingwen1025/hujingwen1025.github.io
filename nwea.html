@@ -9,16 +9,12 @@
   <label for="urlInput">Enter URL:</label>
   <input type="text" id="urlInput" placeholder="https://www.example.com">
   <button onclick="openPopup()">OK</button>
-  <h3>Window Smallifyer</h3>
-  <button onclick="resizeWindow()">Smallify</button>
-
+  <h3>Quit NWEA Browser</h3>
+  <button onclick="close()">Close</button>
   <script>
     function openPopup() {
       var url = document.getElementById('urlInput').value;
       window.open(url, '_blank');
-    }
-    function resizeWindow() {
-      window.resizeTo(1, 1);
     }
   </script>
 </body>
