@@ -1,14 +1,19 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta lang="en">
-        <title>NWEA CRACKED</title>
-    </head>
-    <body>
-        <iframe scr="https://test.mapnwea.org/#/" height="100%" width="100%" style="border:none;"></iframe>
-        <br><br>
-        <center>
-            <iframe src="https://browser.lol/create" height="75%" width="75%"></iframe>
-        </center>
-    </body>
+<head>
+  <title>URL Popup</title>
+</head>
+<body>
+  <h2>URL Popup Launcher</h2>
+  <label for="urlInput">Enter URL:</label>
+  <input type="text" id="urlInput" placeholder="https://www.example.com">
+  <button onclick="openPopup()">OK</button>
+
+  <script>
+    function openPopup() {
+      var url = document.getElementById('urlInput').value;
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
 </html>
