@@ -9,6 +9,8 @@
         "LibGrappleFRC-2024": "https://storage.googleapis.com/grapple-frc-maven/libgrapplefrc2024.json",
         "LibGrappleFRC-2023": "https://storage.googleapis.com/grapple-frc-maven/libgrapplefrc2023.json",
         "WpilibNewCommands-New": "https://raw.githubusercontent.com/wpilibsuite/allwpilib/main/wpilibNewCommands/WPILibNewCommands.json",
-        "PhotonVision-v1.0": "https://maven.photonvision.org/repository/internal/org/photonvision/photonlib-json/1.0/photonlib-json-1.0.json"
+        "PhotonVision-v1.0": "https://maven.photonvision.org/repository/internal/org/photonvision/photonlib-json/1.0/photonlib-json-1.0.json",
+        "PathPlanner-New": "https://3015rangerrobotics.github.io/pathplannerlib/PathplannerLib.json",
+        "PathPlanner-2023": "https://3015rangerrobotics.github.io/pathplannerlib/PathplannerLib2023.json"
     }
 }
