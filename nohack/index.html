@@ -79,6 +79,26 @@
 	</style>
 </head>
 <body>
+	<script>
+        // Function to check and show terms popup
+        function checkAndShowTerms() {
+            const termsShown = localStorage.getItem('termsShowed');
+            
+            if (termsShown == 'false' || termsShown == null) {
+                const popup = document.getElementById('termsPopup');
+                popup.style.display = 'block';
+                
+                // Add event listeners for buttons
+                popup.querySelector('.accept').addEventListener('click', () => {
+                    localStorage.setItem('termsShowed', 'true');
+                    popup.style.display = 'none';
+                });
+            }
+        }
+
+        // Call the function when page loads
+        window.onload = checkAndShowTerms;
+    </script>
 	<div id="termsPopup" class="terms-popup">
         <div class="terms-content">
             <h2>No Hack - We use trackers</h2>
@@ -123,26 +143,6 @@
 		
 		<p>Stay informed and take proactive steps to secure your online presence.</p>
 	</section>
-	 <script>
-        // Function to check and show terms popup
-        function checkAndShowTerms() {
-            const termsShown = localStorage.getItem('termsShowed');
-            
-            if (termsShown == 'false' || termsShown == null) {
-                const popup = document.getElementById('termsPopup');
-                popup.style.display = 'block';
-                
-                // Add event listeners for buttons
-                popup.querySelector('.accept').addEventListener('click', () => {
-                    localStorage.setItem('termsShowed', 'true');
-                    popup.style.display = 'none';
-                });
-            }
-        }
-
-        // Call the function when page loads
-        window.onload = checkAndShowTerms;
-    </script>
 	<!-- Default Statcounter code for No Hack
 https://hujingwen1025.github.io/nohack/ -->
 <script type="text/javascript">
