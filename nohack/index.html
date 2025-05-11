@@ -76,29 +76,22 @@
             border: none;
             border-radius: 4px;
         }
-
-        button.cancel {
-            background-color: #f44336;
-            color: white;
-            border: none;
-            border-radius: 4px;
-        }
 	</style>
 </head>
 <body>
 	<div id="termsPopup" class="terms-popup">
         <div class="terms-content">
-            <h2>Website Terms and Conditions</h2>
-            <p>Please review our terms and conditions below:</p>
+            <h2>No Hack - We use trackers</h2>
+            <p>Trackers are used to optimize deliveries of our contents</p>
             <ol>
-                <li>Term 1: Content ownership...</li>
-                <li>Term 2: Usage rights...</li>
-                <li>Term 3: Privacy policy...</li>
+                <li>No personal data are collected</li>
+                <li>Trackers only track your interactions with this and only this site</li>
+                <li>Trackers only collect information about your clicks and redirects on this site</li>
+		<li>Collected information will only be used for internal reference</li>
             </ol>
         </div>
         <div class="buttons">
-            <button class="cancel">Cancel</button>
-            <button class="accept">Accept</button>
+            <button class="accept">Got it</button>
         </div>
     </div>
 	<header>
@@ -142,10 +135,6 @@
                 // Add event listeners for buttons
                 popup.querySelector('.accept').addEventListener('click', () => {
                     localStorage.setItem('termsShowed', 'true');
-                    popup.style.display = 'none';
-                });
-                
-                popup.querySelector('.cancel').addEventListener('click', () => {
                     popup.style.display = 'none';
                 });
             }
