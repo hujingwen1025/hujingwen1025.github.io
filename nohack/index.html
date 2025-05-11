@@ -130,12 +130,12 @@
 		
 		<p>Stay informed and take proactive steps to secure your online presence.</p>
 	</section>
-	<script>
+	 <script>
         // Function to check and show terms popup
         function checkAndShowTerms() {
             const termsShown = localStorage.getItem('termsShowed');
             
-            if (termsShown == null) {
+            if (termsShown == 'false' || termsShown == null) {
                 const popup = document.getElementById('termsPopup');
                 popup.style.display = 'block';
                 
