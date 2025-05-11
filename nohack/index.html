@@ -135,7 +135,7 @@
         function checkAndShowTerms() {
             const termsShown = localStorage.getItem('termsShowed');
             
-            if (termsShown === 'false') {
+            if (termsShown == null) {
                 const popup = document.getElementById('termsPopup');
                 popup.style.display = 'block';
                 
