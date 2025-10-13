@@ -357,54 +357,50 @@
             gap: 15px;
             margin-top: 20px;
         }
-        
-        /* New styles for multiple toppings */
-        .toppings-instruction {
-            margin-bottom: 10px;
-            color: #666;
-            font-size: 1rem;
-        }
-        
-        .selected-toppings {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #f0f8ff;
-            border-radius: 10px;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .selected-toppings h4 {
-            color: #38b6ff;
-            margin-bottom: 10px;
-        }
-        
-        .selected-toppings-list {
+        .chosen-toppings-area {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            min-height: 38px;
         }
-        
-        .selected-topping-tag {
-            background-color: #38b6ff;
-            color: white;
-            padding: 5px 12px;
+        .chosen-topping-chip {
+            background: #38b6ff;
+            color: #fff;
             border-radius: 20px;
-            font-size: 0.9rem;
+            padding: 7px 16px 7px 14px;
             display: flex;
             align-items: center;
+            font-size: 1rem;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(56,182,255,0.08);
+            transition: background 0.2s;
         }
-        
-        .remove-topping {
+        .chosen-topping-chip .remove-chip-btn {
             background: none;
             border: none;
-            color: white;
+            color: #fff;
+            font-size: 1.1em;
             margin-left: 8px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 1rem;
+            line-height: 1;
+            padding: 0 2px;
+            transition: color 0.2s;
+        }
+        .chosen-topping-chip .remove-chip-btn:hover {
+            color: #222;
+        }
+        /* Fade animation for toppings grid */
+        .toppings-grid.fade-out {
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
+        .toppings-grid.fade-in {
+            opacity: 1;
+            transition: opacity 0.35s;
         }
     </style>
 </head>
@@ -413,11 +409,11 @@
         <!-- Step 0: Welcome Screen -->
         <div class="step active" id="step0">
             <div class="welcome-header">
-                <div class="company-logo">CY</div>
+                <img class="company-logo" src="./logo.jpg">
                 <h1>Custom Yogurts</h1>
             </div>
             
-            <div class="banner-image">Create Your Perfect Yogurt</div>
+            <img class="banner-image" src="./banner.jpg">
             
             <p class="welcome-text">Welcome to Custom Yogurts, where you can create your perfect yogurt bowl with premium ingredients and delicious toppings!</p>
             
@@ -452,18 +448,18 @@
                 <div class="progress-step">3</div>
             </div>
             
-            <p>Choose your favorite yogurt flavor (select one)</p>
+            <p>Choose your favorite yogurt flavors</p>
             <div class="selection-container">
                 <div class="option" data-value="No sugar yogurt" onclick="toggleSelection(this, 'flavor')">
-                    <div class="option-image">No Sugar</div>
+                    <img src="./noSugarYogurt.jpg" alt="No sugar yogurt">
                     <h3>No sugar yogurt</h3>
                 </div>
                 <div class="option" data-value="Sweet yogurt" onclick="toggleSelection(this, 'flavor')">
-                    <div class="option-image">Sweet</div>
+                    <img src="./sugarYogurt.jpg" alt="Sweet yogurt">
                     <h3>Sweet yogurt</h3>
                 </div>
                 <div class="option" data-value="Coconut chia pudding" onclick="toggleSelection(this, 'flavor')">
-                    <div class="option-image">Chia</div>
+                    <img src="./chiaYogurt.jpg" alt="Coconut chia pudding">
                     <h3>Coconut chia pudding</h3>
                 </div>
             </div>
@@ -473,17 +469,15 @@
         <!-- Step 3: Topping Selection -->
         <div class="step" id="step3">
             <h1>Create Your Perfect Yogurt</h1>
-            
             <div class="progress-bar">
                 <div class="progress-step active">1</div>
                 <div class="progress-step active">2</div>
                 <div class="progress-step active">3</div>
             </div>
-            
             <p>Now choose your favorite toppings</p>
-            <p class="toppings-instruction">Select as many toppings as you'd like</p>
-            
             <div class="toppings-container">
+                <!-- Chosen toppings area -->
+                <div class="chosen-toppings-area" id="chosenToppingsArea"></div>
                 <div class="toppings-grid" id="toppingsGrid">
                     <!-- Toppings will be populated by JavaScript -->
                 </div>
@@ -493,15 +487,7 @@
                     <button class="nav-btn" id="nextToppingsBtn" onclick="changeToppingsPage(1)">↓</button>
                 </div>
             </div>
-            
-            <div class="selected-toppings" id="selectedToppingsContainer" style="display: none;">
-                <h4>Your Selected Toppings:</h4>
-                <div class="selected-toppings-list" id="selectedToppingsList">
-                    <!-- Selected toppings will appear here -->
-                </div>
-            </div>
-            
-            <button class="btn" id="toppingNextBtn" onclick="completeOrder()">Complete Order</button>
+            <button class="btn" id="toppingNextBtn" disabled onclick="completeOrder()">Complete Order</button>
         </div>
         
         <!-- Step 4: Confirmation -->
@@ -527,8 +513,8 @@
 
     <script>
         let userEmail = '';
-        let selectedFlavor = '';
-        let selectedToppings = []; // Changed to array to store multiple toppings
+        let selectedFlavor = {};
+        let selectedToppings = []; // changed from single string to array
         let currentToppingsPage = 1;
         const toppingsPerPage = 6;
         
@@ -564,6 +550,7 @@
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
             renderToppingsPage(1);
+            updateChosenToppingsArea();
         });
         
         function startOrder() {
@@ -594,18 +581,16 @@
         }
         
         function toggleSelection(element, type) {
+            // Remove selection from all options of this type (for flavor only)
             if (type === 'flavor') {
-                // For flavor (single selection)
-                const options = document.querySelectorAll(`.option[data-type="${type}"]`);
+                const options = document.querySelectorAll(`.option[data-type="flavor"]`);
                 options.forEach(opt => {
                     if (opt !== element) {
                         opt.classList.remove('selected');
-                        if (type === 'flavor') {
-                            opt.removeAttribute('data-type');
-                        }
+                        opt.removeAttribute('data-type');
                     }
                 });
-                
+                // Toggle the current selection
                 if (element.classList.contains('selected')) {
                     element.classList.remove('selected');
                     selectedFlavor = '';
@@ -617,74 +602,17 @@
                     document.getElementById('flavorNextBtn').disabled = false;
                 }
             } else if (type === 'topping') {
-                // For toppings (multiple selection)
-                const toppingValue = element.getAttribute('data-value');
-                
+                // Multiple selection logic for toppings
+                const value = element.getAttribute('data-value');
                 if (element.classList.contains('selected')) {
-                    // Remove from selection
                     element.classList.remove('selected');
-                    const index = selectedToppings.indexOf(toppingValue);
-                    if (index > -1) {
-                        selectedToppings.splice(index, 1);
-                    }
+                    selectedToppings = selectedToppings.filter(t => t !== value);
                 } else {
-                    // Add to selection
                     element.classList.add('selected');
-                    selectedToppings.push(toppingValue);
+                    selectedToppings.push(value);
                 }
-                
-                // Update the selected toppings display
-                updateSelectedToppingsDisplay();
-                
-                // Show/hide the selected toppings container
-                const container = document.getElementById('selectedToppingsContainer');
-                if (selectedToppings.length > 0) {
-                    container.style.display = 'block';
-                } else {
-                    container.style.display = 'none';
-                }
-            }
-        }
-        
-        function updateSelectedToppingsDisplay() {
-            const container = document.getElementById('selectedToppingsList');
-            container.innerHTML = '';
-            
-            selectedToppings.forEach(topping => {
-                const tag = document.createElement('div');
-                tag.className = 'selected-topping-tag';
-                tag.innerHTML = `
-                    ${topping}
-                    <button class="remove-topping" onclick="removeTopping('${topping}')">×</button>
-                `;
-                container.appendChild(tag);
-            });
-        }
-        
-        function removeTopping(topping) {
-            // Remove from selectedToppings array
-            const index = selectedToppings.indexOf(topping);
-            if (index > -1) {
-                selectedToppings.splice(index, 1);
-            }
-            
-            // Update the visual selection
-            const allToppingElements = document.querySelectorAll('.option[data-type="topping"]');
-            allToppingElements.forEach(element => {
-                if (element.getAttribute('data-value') === topping) {
-                    element.classList.remove('selected');
-                }
-            });
-            
-            // Update the display
-            updateSelectedToppingsDisplay();
-            
-            // Show/hide the selected toppings container
-            const container = document.getElementById('selectedToppingsContainer');
-            if (selectedToppings.length > 0) {
-                container.style.display = 'block';
-            } else {
-                container.style.display = 'none';
+                document.getElementById('toppingNextBtn').disabled = selectedToppings.length === 0;
+                updateChosenToppingsArea();
             }
         }
         
@@ -704,46 +632,82 @@
             document.body.classList.remove('step-2');
         }
         
+        function updateChosenToppingsArea() {
+            const area = document.getElementById('chosenToppingsArea');
+            area.innerHTML = '';
+            selectedToppings.forEach(topping => {
+                const chip = document.createElement('span');
+                chip.className = 'chosen-topping-chip';
+                chip.textContent = topping;
+                const btn = document.createElement('button');
+                btn.className = 'remove-chip-btn';
+                btn.type = 'button';
+                btn.innerHTML = '&times;';
+                btn.onclick = function() { removeChosenTopping(topping); };
+                chip.appendChild(btn);
+                area.appendChild(chip);
+            });
+        }
+        function removeChosenTopping(topping) {
+            selectedToppings = selectedToppings.filter(t => t !== topping);
+            document.getElementById('toppingNextBtn').disabled = selectedToppings.length === 0;
+            // Unselect the topping in the grid if visible
+            const toppingOptions = document.querySelectorAll('.option[data-type="topping"]');
+            toppingOptions.forEach(opt => {
+                if (opt.getAttribute('data-value') === topping) {
+                    opt.classList.remove('selected');
+                }
+            });
+            updateChosenToppingsArea();
+        }
         function renderToppingsPage(page) {
             const toppingsGrid = document.getElementById('toppingsGrid');
-            toppingsGrid.innerHTML = '';
-            
-            // Calculate start and end indices for the current page
-            const startIndex = (page - 1) * toppingsPerPage;
-            const endIndex = Math.min(startIndex + toppingsPerPage, toppings.length);
-            
-            // Create topping elements for the current page
-            for (let i = startIndex; i < endIndex; i++) {
-                const topping = toppings[i];
-                const toppingImage = toppingImages[i];
-                const option = document.createElement('div');
-                option.className = 'option';
-                option.setAttribute('data-value', topping);
-                option.setAttribute('data-type', 'topping');
-                option.onclick = function() { toggleSelection(this, 'topping'); };
+            // Fade out animation
+            toppingsGrid.classList.remove('fade-in');
+            toppingsGrid.classList.add('fade-out');
+            setTimeout(() => {
+                toppingsGrid.innerHTML = '';
+                // Calculate start and end indices for the current page
+                const startIndex = (page - 1) * toppingsPerPage;
+                const endIndex = Math.min(startIndex + toppingsPerPage, toppings.length);
                 
-                option.innerHTML = `
-                    <div class="option-image">${topping.split(' ')[0]}</div>
-                    <h3>${topping}</h3>
-                `;
-                
-                // If this topping was previously selected, mark it as selected
-                if (selectedToppings.includes(topping)) {
-                    option.classList.add('selected');
+                // Create topping elements for the current page
+                for (let i = startIndex; i < endIndex; i++) {
+                    const topping = toppings[i];
+                    const toppingImage = toppingImages[i];
+                    const option = document.createElement('div');
+                    option.className = 'option';
+                    option.setAttribute('data-value', topping);
+                    option.setAttribute('data-type', 'topping');
+                    option.onclick = function() { toggleSelection(this, 'topping'); };
+
+                    option.innerHTML = `
+                        <img src="${toppingImage}" alt="${topping}">
+                        <h3>${topping}</h3>
+                    `;
+
+                    // If this topping was previously selected, mark it as selected
+                    if (selectedToppings.includes(topping)) {
+                        option.classList.add('selected');
+                    }
+
+                    toppingsGrid.appendChild(option);
                 }
                 
-                toppingsGrid.appendChild(option);
-            }
-            
-            // Update page indicator
-            const totalPages = Math.ceil(toppings.length / toppingsPerPage);
-            document.getElementById('toppingsPageIndicator').textContent = `Page ${page} of ${totalPages}`;
-            
-            // Update navigation buttons
-            document.getElementById('prevToppingsBtn').disabled = page === 1;
-            document.getElementById('nextToppingsBtn').disabled = page === totalPages;
-            
-            currentToppingsPage = page;
+                // Update page indicator
+                const totalPages = Math.ceil(toppings.length / toppingsPerPage);
+                document.getElementById('toppingsPageIndicator').textContent = `Page ${page} of ${totalPages}`;
+                
+                // Update navigation buttons
+                document.getElementById('prevToppingsBtn').disabled = page === 1;
+                document.getElementById('nextToppingsBtn').disabled = page === totalPages;
+                
+                currentToppingsPage = page;
+                // Fade in animation
+                toppingsGrid.classList.remove('fade-out');
+                toppingsGrid.classList.add('fade-in');
+            }, 350);
+            updateChosenToppingsArea();
         }
         
         function changeToppingsPage(direction) {
@@ -756,8 +720,10 @@
         }
         
         function completeOrder() {
-            // No longer require a topping selection to complete the order
-            // (users can have yogurt with no toppings if they prefer)
+            if (!selectedToppings.length) {
+                alert('Please select at least one topping');
+                return;
+            }
             
             // Hide topping step and show confirmation
             document.getElementById('step3').classList.remove('active');
@@ -766,12 +732,7 @@
             // Update order summary
             document.getElementById('summary-email').textContent = `Email: ${userEmail}`;
             document.getElementById('summary-flavor').textContent = `Flavor: ${selectedFlavor}`;
-            
-            // Display selected toppings
-            const toppingsText = selectedToppings.length > 0 
-                ? `Toppings: ${selectedToppings.join(', ')}` 
-                : 'Toppings: None selected';
-            document.getElementById('summary-topping').textContent = toppingsText;
+            document.getElementById('summary-topping').textContent = `Topping(s): ${selectedToppings.join(', ')}`;
         }
         
         function createAnotherOrder() {
@@ -797,9 +758,7 @@
             
             // Disable buttons
             document.getElementById('flavorNextBtn').disabled = true;
-            
-            // Hide selected toppings container
-            document.getElementById('selectedToppingsContainer').style.display = 'none';
+            document.getElementById('toppingNextBtn').disabled = true;
             
             // Render first toppings page
             renderToppingsPage(1);
