@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>路亚钓鱼指南 - 详细版</title>
+    <style>
+        :root {
+            --primary-color: #1e88e5;
+            --secondary-color: #43a047;
+            --dark-color: #263238;
+            --light-color: #f5f5f5;
+            --accent-color: #e53935;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--light-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            background-image: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: multiply;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: white;
+            color: var(--primary-color);
+            padding: 0.7rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--dark-color);
+            color: white;
+        }
+        
+        .section {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark-color);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 1rem auto 0;
+        }
+        
+        .fish-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .fish-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .fish-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .fish-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+        }
+        
+        .fish-content {
+            padding: 1.5rem;
+        }
+        
+        .fish-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .fish-content .type {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .saltwater .type {
+            background-color: #0288d1;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+        
+        .modal-content {
+            position: relative;
+            margin: 5% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 8px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--dark-color);
+            cursor: pointer;
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-title {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .modal-subtitle {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin: 1rem 0;
+        }
+        
+        .footer-links li {
+            margin: 0 1rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 2% auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">路亚钓鱼</div>
+                <ul class="nav-links">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#freshwater">淡水鱼种</a></li>
+                    <li><a href="#saltwater">海水鱼种</a></li>
+                    <li><a href="#techniques">钓法技巧</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>路亚钓鱼指南 - 详细版</h1>
+            <p>深入了解海水和淡水路亚目标鱼种及专业钓法技巧</p>
+            <a href="#freshwater" class="btn">开始探索</a>
+        </div>
+    </section>
+    
+    <section class="section" id="freshwater">
+        <div class="container">
+            <h2 class="section-title">淡水路亚目标鱼种</h2>
+            <div class="fish-grid">
+                <div class="fish-card" onclick="showModal('鲈鱼', '淡水鱼种', 'https://www.iq3344.com/uploads/baike/luyu_fish1.jpg', '鲈鱼是最常见的路亚目标鱼，广泛分布于我国各大水系。它们喜欢栖息在有障碍物的水域，如沉木、水草丛、岩石区等。鲈鱼是典型的伏击型捕食者，视觉敏锐，对活动的拟饵反应强烈。', '最佳拟饵：软虫、米诺、摇摆饵、复合亮片', '最佳季节：春末至秋初，水温15-25℃时最活跃', '钓法技巧：使用抽停钓法模拟受伤小鱼，重点搜索障碍物边缘')">
+                    <div class="fish-image" style="background-image: url('https://www.iq3344.com/uploads/baike/luyu_fish1.jpg')"></div>
+                    <div class="fish-content">
+                        <span class="type">淡水鱼种</span>
+                        <h3>鲈鱼</h3>
+                        <p>最常见的路亚目标鱼，喜欢栖息在有障碍物的水域，可使用软虫、米诺等拟饵。</p>
+                    </div>
+                </div>
+                
+                <div class="fish-card" onclick="showModal('黑鱼', '淡水鱼种', 'https://www.whb.cn/u/cms/www/201910/15172812y289.jpg', '黑鱼是淡水中的顶级掠食者，性格凶猛，领地意识强。它们喜欢潜伏在水草丛或芦苇丛中伏击猎物。黑鱼有辅助呼吸器官，能在低氧环境中生存。', '最佳拟饵：雷蛙、软虫、水面系铅笔、波爬', '最佳季节：夏季清晨和傍晚，水温20-30℃时最活跃', '钓法技巧：重点搜索水草边缘，使用水面系拟饵制造水花吸引攻击')">
+                    <div class="fish-image" style="background-image: url('https://www.whb.cn/u/cms/www/201910/15172812y289.jpg')"></div>
+                    <div class="fish-content">
+                        <span class="type">淡水鱼种</span>
+                        <h3>黑鱼</h3>
+                        <p>凶猛肉食性鱼类，喜欢伏击猎物，适合使用雷蛙、软虫等水面或中层拟饵。</p>
+                    </div>
+                </div>
+                
+                <div class="fish-card" onclick="showModal('鳜鱼', '淡水鱼种', 'https://p4.itc.cn/q_70/images03/20230405/3856468979c947e5bee5f7c07c1736fa.jpeg', '鳜鱼是典型的底层伏击型鱼类，喜欢栖息在岩石缝隙或水底结构复杂的区域。它们对活饵反应强烈，捕食时动作迅猛。鳜鱼对水质要求较高，多分布在清澈的水域。', '最佳拟饵：铅头钩配软虫、小型米诺、VIB', '最佳季节：春秋季，水温10-20℃时最活跃', '钓法技巧：使用跳底钓法，让拟饵在水底跳跃前进')">
+                    <div class="fish-image" style="background-image: url('https://p4.itc.cn/q_70/images03/20230405/3856468979c947e5bee5f7c07c1736fa.jpeg')"></div>
+                    <div class="fish-content">
+                        <span class="type">淡水鱼种</span>
+                        <h3>鳜鱼</h3>
+                        <p>栖息在岩石缝隙中，喜欢活饵，可使用铅头钩配软虫或小型米诺。</p>
+                    </div>
+                </div>
+                
+                <div class="fish-card" onclick="showModal('翘嘴鲌', '淡水鱼种', 'https://www.iq3344.com/uploads/baike/qiaozuiyu_fish1.jpg', '翘嘴鲌是典型的中上层掠食性鱼类，喜欢集群活动。它们视力极佳，擅长高速追击小鱼。翘嘴鲌在清晨和黄昏最为活跃，常在水面形成炸水现象。', '最佳拟饵：亮片、米诺、铅笔、波爬', '最佳季节：春夏秋三季，水温15-28℃时最活跃', '钓法技巧：使用匀速收线或变速收线，模拟逃窜的小鱼')">
+                    <div class="fish-image" style="background-image: url('https://www.iq3344.com/uploads/baike/qiaozuiyu_fish1.jpg')"></div>
+                    <div class="fish-content">
+                        <span class="type">淡水鱼种</span>
+                        <h3>翘嘴鲌</h3>
+                        <p>活跃在水体中上层，喜欢追逐小鱼，适合使用亮片、米诺等拟饵。</p>
+                    </div>
+                </div>
+                
+                <div class="fish-card" onclick="showModal('鲶鱼', '淡水鱼种', 'https://seacube-ltd.com/wp-content/uploads/2025/08/catfish.png', '鲶鱼是典型的底栖鱼类，嗅觉和触觉极为发达，但视力较差。它们多在夜间活动，喜欢在深水区或有遮蔽物的地方栖息。鲶鱼体型可以长得很大，是路亚钓法中的强力对手。', '最佳拟饵：带有强烈气味的软饵、沉水型拟饵、VIB', '最佳季节：夏季夜间，水温20-30℃时最活跃', '钓法技巧：使用慢速拖底钓法，重点搜索深水区')">
+                    <div class="fish-image" style="background-image: url('https://seacube-ltd.com/wp-content/uploads/2025/08/catfish.png')"></div>
+                    <div class="fish-content">
+                        <span class="type">淡水鱼种</span>
+                        <h3>鲶鱼</h3>
+                        <p>底层鱼类，嗅觉灵敏，可使用带有强烈气味的软饵或沉水型拟饵。</p>
+                    </div>
+                </div>
+                
+                <div class="fish-card" onclick="showModal('马口鱼', '淡水鱼种', 'https://upload.wikimedia.org/wikipedia/commons/2/27/Hasu.jpg', '马口鱼是小型凶猛鱼类，喜欢在急流中活动。它们虽然体型不大，但攻击性极强，常成群结队地攻击猎物。马口鱼对快速移动的拟饵反应强烈。', '最佳拟饵：小型亮片、旋转亮片、微型米诺', '最佳季节：春夏秋三季，水温15-25℃时最活跃', '钓法技巧：在急流中使用快速收线，模拟被水流冲走的小鱼')">
+                    <div class="fish-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/27/Hasu.jpg')"></div>
+                    <div class="fish-content">
+                        <span class="type">淡水鱼种</span>
+                        <h3>马口鱼</h3>
+                        <p>小型凶猛鱼类，喜欢在急流中活动，适合使用小型亮片或旋转亮片。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="saltwater">
+        <div class="container">
+            <h2 class="section-title">海水路亚目标鱼种</h2>
+            <div class="fish-grid">
+                <div class="fish-card" onclick="showModal('海鲈', '海水鱼种', 'https://seafood-guide.wwf.org.hk/sites/default/files/2021-03/g20european-bass.jpg', '海鲈是沿海常见的路亚目标鱼，喜欢在礁石区或河口活动。它们适应能力强，既能适应海水也能适应淡水。海鲈捕食凶猛，常在水面形成炸水现象。', '最佳拟饵：米诺、铅头钩、波爬、铁板', '最佳季节：春秋季，水温15-22℃时最活跃', '钓法技巧：在潮水变化时重点搜索礁石边缘和河口区')">
+                    <div class="fish-image" style="background-image: url('https://seafood-guide.wwf.org.hk/sites/default/files/2021-03/g20european-bass.jpg')"></div>
+                    <div class="fish-content">
+                        <span class="type saltwater">海水鱼种</span>
+                        <h3>海鲈</h3>
+                        <p>沿海常见目标鱼，活跃在礁石区或河口，可使用米诺、铅头钩等拟饵。</p>
+                    </div>
+                </div>
+                
+                <div class="fish-card" onclick="showModal('石斑', '海水鱼种', 'https://img.ltn.com.tw/Upload/news/600/2023/04/06/4262167_1_1.jpg', '石斑鱼是典型的礁石区鱼类，喜欢潜伏在洞穴或缝隙中伏击猎物。它们体型健壮，力量强大，是路亚钓法中的强力对手。石斑鱼对沉水型拟饵反应良好。', '最佳拟饵：软饵、沉水型拟饵、铁板', '最佳季节：全年可钓，水温18-28℃时最活跃', '钓法技巧：使用跳底钓法，让拟饵在礁石区底部跳跃前进')">
+                    <div class="fish-image" style="background-image: url('https://img.ltn.com.tw/Upload/news/600/2023/04/06/4262167_1_1.jpg')"></div>
+                    <div class="fish-content">
+                        <span class="type saltwater">海水鱼种</span>
+                        <h3>石斑</h3>
+                        <p>栖息在礁石缝隙中，喜欢伏击猎物，适合使用软饵或沉水型拟饵。</p>
+                    </div>
+                </div>
+                
+                <div class="fish-card" onclick="showModal('红鼓', '海水鱼种', 'https://www.oceanleader.com.tw/resource/upload/07_red-drum/wholeround/07_red-drum_wholeround_001.jpg', '红鼓鱼是力量强大的目标鱼，喜欢追逐小鱼群。它们常出现在河口或近海沙底区域，捕食时凶猛异常。红鼓鱼对水面系拟饵反应强烈。', '最佳拟饵：大型米诺、波爬、铁板', '最佳季节：夏秋季，水温22-30℃时最活跃', '钓法技巧：在水面使用波爬制造水花吸引攻击')">
+                    <div class="fish-image" style="background-image: url('https://www.oceanleader.com.tw/resource/upload/07_red-drum/wholeround/07_red-drum_wholeround_001.jpg')"></div>
+                    <div class="fish-content">
+                        <span class="type saltwater">海水鱼种</span>
+                        <h3>红鼓</h3>
+                        <p>力量强大的目标鱼，喜欢追逐小鱼群，适合使用大型米诺或波爬。</p>
+                    </div>
+                </div>
+                
+                <div class="fish-card" onclick="showModal('鲣鱼', '海水鱼种', 'https://www.umamiinfo.com/images/richfood/foodstuff/katsuobushi/ph_katsuo.png', '鲣鱼是高速游动的洄游鱼类，常成群活动。它们视力极佳，对快速移动的拟饵反应强烈。鲣鱼力量强大，是海钓中的强力对手。', '最佳拟饵：铁板、快速米诺、铅笔', '最佳季节：夏秋季，水温22-30℃时最活跃', '钓法技巧：使用快速收线，模拟逃窜的小鱼')">
+                    <div class="fish-image" style="background-image: url('https://www.umamiinfo.com/images/richfood/foodstuff/katsuobushi/ph_katsuo.png')"></div>
+                    <div class="fish-content">
+                        <span class="type saltwater">海水鱼种</span>
+                        <h3>鲣鱼</h3>
+                        <p>高速游动的洄游鱼类，适合使用铁板或快速收线的拟饵。</p>
+                    </div>
+                </div>
+                
+                <div class="fish-card" onclick="showModal('鲯鳅', '海水鱼种', 'https://pic3.zhimg.com/v2-2926fb955dacf57fd6494486f926c01a_1440w.jpg', '鲯鳅是色彩鲜艳的表层鱼类，喜欢追逐小鱼。它们常出现在温暖的海域，捕食时凶猛异常。鲯鳅对水面系拟饵反应强烈。', '最佳拟饵：水面系拟饵、波爬、铅笔', '最佳季节：夏秋季，水温24-30℃时最活跃', '钓法技巧：在水面使用波爬制造水花吸引攻击')">
+                    <div class="fish-image" style="background-image: url('https://pic3.zhimg.com/v2-2926fb955dacf57fd6494486f926c01a_1440w.jpg')"></div>
+                    <div class="fish-content">
+                        <span class="type saltwater">海水鱼种</span>
+                        <h3>鲯鳅</h3>
+                        <p>色彩鲜艳的表层鱼类，喜欢追逐小鱼，适合使用水面系拟饵。</p>
+                    </div>
+                </div>
+                
+                <div class="fish-card" onclick="showModal('带鱼', '海水鱼种', 'https://p8.itc.cn/images01/20220213/33391cb54a414f50b52635b5a5be8095.jpeg', '带鱼是夜间活跃的深海鱼类，白天多栖息在深水区，夜晚上升到表层捕食。它们对发光拟饵反应良好。带鱼牙齿锋利，需要使用防咬线。', '最佳拟饵：发光拟饵、铁板', '最佳季节：夏秋季夜间，水温20-28℃时最活跃', '钓法技巧：在夜间使用发光拟饵，慢速收线')">
+                    <div class="fish-image" style="background-image: url('https://p8.itc.cn/images01/20220213/33391cb54a414f50b52635b5a5be8095.jpeg')"></div>
+                    <div class="fish-content">
+                        <span class="type saltwater">海水鱼种</span>
+                        <h3>带鱼</h3>
+                        <p>夜间活跃的深海鱼类，可使用发光拟饵或铁板在夜间作钓。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="techniques">
+        <div class="container">
+            <h2 class="section-title">路亚钓法技巧</h2>
+            <div class="fish-grid">
+                <div class="fish-card" onclick="showModal('抽停钓法', '钓法技巧', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh614vdoBEvlVl3tfxri2a0WhtEEnST6QYUPEBOaItNWWs6GeZyXSjeM9-D34kiNOgAMa9DI-gqJf5ny3r99kbG3cEU3UGeYeFbTLzhmYcS8bKV3ZKJ_rWapyRziQEjbGlmF2vihHFekyH7/s1600/%25E9%2580%258F%25E6%258A%25BD%25E5%25A4%25A7%25E9%2587%25A3%25E7%25B5%2584.jpg', '抽停钓法是通过竿尖的抽动使拟饵产生不规则的游动轨迹，模仿受伤的小鱼。这种钓法特别适合鲈鱼、海鲈等伏击型鱼类。', '适用鱼种：鲈鱼、海鲈、鳜鱼、石斑', '操作要点：抽动竿尖后停顿1-3秒，让拟饵下沉', '拟饵选择：软虫、铅头钩、米诺')">
+                    <div class="fish-image" style="background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh614vdoBEvlVl3tfxri2a0WhtEEnST6QYUPEBOaItNWWs6GeZyXSjeM9-D34kiNOgAMa9DI-gqJf5ny3r99kbG3cEU3UGeYeFbTLzhmYcS8bKV3ZKJ_rWapyRziQEjbGlmF2vihHFekyH7/s1600/%25E9%2580%258F%25E6%258A%25BD%25E5%25A4%25A7%25E9%2587%25A3%25E7%25B5%2584.jpg')"></div>
+                    <div class="fish-content">
+                        <h3>抽停钓法</h3>
+                        <p>通过竿尖的抽动使拟饵产生不规则的游动轨迹，模仿受伤的小鱼，适合鲈鱼、海鲈等。</p>
+                    </div>
+                </div>
+                
+                <div class="fish-card" onclick="showModal('匀速收线', '钓法技巧', 'https://static.chiphell.com/forum/202304/06/104621ft00uhi6dd20xyoo.jpg', '匀速收线是最基础的路亚钓法，保持稳定的收线速度使拟饵保持在水层中自然游动。这种钓法适合翘嘴鲌、鲣鱼等追逐型鱼类。', '适用鱼种：翘嘴鲌、鲣鱼、红鼓、鲯鳅', '操作要点：保持稳定的收线速度，通常1-2米/秒', '拟饵选择：亮片、米诺、铅笔')">
+                    <div class="fish-image" style="background-image: url('https://static.chiphell.com/forum/202304/06/104621ft00uhi6dd20xyoo.jpg')"></div>
+                    <div class="fish-content">
+                        <h3>匀速收线</h3>
+                        <p>保持稳定的收线速度，使拟饵保持在水层中自然游动，适合翘嘴鲌、鲣鱼等。</p>
+                    </div>
+                </div>
+                
+                <div class="fish-card" onclick="showModal('跳底钓法', '钓法技巧', 'https://p3.diaoyur.cn/group3/M00/0B/6A/cjd0iVd6iZ0xMIvyn1W-23uDtCPjw.jpeg', '跳底钓法是让拟饵在水底跳跃前进，模仿底栖生物。这种钓法适合鳜鱼、石斑等底层伏击型鱼类。', '适用鱼种：鳜鱼、石斑、鲶鱼', '操作要点：让拟饵触底后轻抽竿尖，然后放松让拟饵再次下沉', '拟饵选择：铅头钩、VIB、德州钓组')">
+                    <div class="fish-image" style="background-image: url('https://p3.diaoyur.cn/group3/M00/0B/6A/cjd0iVd6iZ0xMIvyn1W-23uDtCPjw.jpeg')"></div>
+                    <div class="fish-content">
+                        <h3>跳底钓法</h3>
+                        <p>让拟饵在水底跳跃前进，模仿底栖生物，适合鳜鱼、石斑等底层鱼类。</p>
+                    </div>
+                </div>
+                
+                <div class="fish-card" onclick="showModal('水面系钓法', '钓法技巧', 'https://picx.zhimg.com/v2-d1dd2540a0bdd5bc6b919c40192a9004_720w.jpg?source=172ae18b', '水面系钓法是使用波爬、铅笔等水面系拟饵制造水花吸引鱼类攻击。这种钓法视觉冲击力强，适合黑鱼、鲯鳅等对水面动静敏感的鱼类。', '适用鱼种：黑鱼、鲯鳅、海鲈', '操作要点：抽动竿尖制造水花后停顿，让水波扩散', '拟饵选择：波爬、铅笔、雷蛙')">
+                    <div class="fish-image" style="background-image: url('https://picx.zhimg.com/v2-d1dd2540a0bdd5bc6b919c40192a9004_720w.jpg?source=172ae18b')"></div>
+                    <div class="fish-content">
+                        <h3>水面系钓法</h3>
+                        <p>使用波爬、铅笔等水面系拟饵制造水花吸引鱼类攻击，适合黑鱼、鲯鳅等。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div id="fishModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modalImage" class="modal-image" src="" alt="">
+            <h2 id="modalTitle" class="modal-title"></h2>
+            <h3 id="modalType" class="modal-subtitle"></h3>
+            <p id="modalDesc"></p>
+            <h3 class="modal-subtitle">最佳拟饵</h3>
+            <p id="modalLure"></p>
+            <h3 class="modal-subtitle">最佳季节</h3>
+            <p id="modalSeason"></p>
+            <h3 class="modal-subtitle">钓法技巧</h3>
+            <p id="modalTech"></p>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 路亚钓鱼指南. 保留所有权利。</p>
+            <ul class="footer-links">
+                <li><a href="javascript:alert('专业路亚技巧与实战攻略，助你精准操控、提升中鱼率，一站式成为路亚高手。这里是你的路亚之家');">关于我们</a></li>
+                <li><a href="mailto:yibo.zhou@student.keystoneacademy.cn">联系方式</a></li>
+                <li><a href="https://www.ifish.net/forums/">钓鱼论坛</a></li>
+            </ul>
+            <br>
+            <p>This website was created by Yibo Joy Zhou and was hosted with the help of William Hu</p>
+        </div>
+    </footer>
+    
+    <script>
+        function showModal(title, type, image, desc, lure, season, tech) {
+            document.getElementById('modalImage').src = image;
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalType').textContent = type;
+            document.getElementById('modalDesc').textContent = desc;
+            document.getElementById('modalLure').textContent = lure;
+            document.getElementById('modalSeason').textContent = season;
+            document.getElementById('modalTech').textContent = tech;
+            document.getElementById('fishModal').style.display = 'block';
+        }
+        
+        function closeModal() {
+            document.getElementById('fishModal').style.display = 'none';
+        }
+        
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('fishModal')) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
