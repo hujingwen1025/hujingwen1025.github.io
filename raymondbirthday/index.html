@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy BDay</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <canvas></canvas>
+
+    <div class="headline">HAPPY BIRTHDAY</div>
+    <div class="instructions">Happy Birthday Raymond!</div>
+    <div class="click-counter">Click the present: <span id="clickCount">0</span>/30</div>
+    <div class="message" id="successMessage">🎉 Happy Birthday! 🎉</div>
+
+    <div class="present">
+        <div class="wiggle-container">
+            <div class="rotate-container">
+                <div class="bottom"></div>
+                <div class="front"></div>
+                <div class="left"></div>
+                <div class="back"></div>
+                <div class="right"></div>
+
+                <div class="lid">
+                    <div class="lid-top"></div>
+                    <div class="lid-front"></div>
+                    <div class="lid-left"></div>
+                    <div class="lid-back"></div>
+                    <div class="lid-right"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Message inside the present -->
+        <div class="present-message-container">
+            <div class="present-message-glow"></div>
+            <div class="present-message">
+                <div class="present-message-icon">🎁</div>
+                <div class="present-message-text" id="presentMessage">Merry Christmas!</div>
+                <div class="present-message-subtext" id="presentSubMessage">Wishing you joy & happiness</div>
+            </div>
+        </div>
+    </div>
+
+    <button class="reset-button" id="resetButton" style="display: none;">RESET</button>
+    <a class="credits" href="https://codepen.io/HektorW/pen/mOjZjY" target="_blank" style="display: none;">Original by HektorW</a>
+
+    <script src="./script.js"></script>
+</body>
+</html>
