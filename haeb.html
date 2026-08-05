@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HAEB</title>
+</head>
+<body>
+    <div id="status">PROCESSING</div>
+
+    <script>
+        const targetUrl = "https://ha.huhome.cloud/api/webhook/entrybarrier";
+
+        fetch(targetUrl + window.location.search, {
+            method: "GET"
+        })
+        .then(response => {
+            document.getElementById("status").textContent =
+                response.ok ? "SUCCESS" : "FAIL";
+        })
+        .catch(() => {
+            document.getElementById("status").textContent = "FAIL";
+        });
+    </script>
+</body>
+</html>
